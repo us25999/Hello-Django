@@ -11,7 +11,7 @@ def home(request):
     if request.method == 'GET' :
         return Response({
             'status' : 200,
-            'message' : 'Yes! Django rest framework is working very very well!!!',
+            'message' : 'Yes! Django rest framework is working!!!',
             'method_called' : 'You called GET method'
         })
 
