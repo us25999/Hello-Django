@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>SEND MAIL</title>
+    </head>
+    <body>
+        <h1>SEND MAIL</h1>
+        <form method="post">
+            {% csrf_token %}
+            subject<br>
+            <input type="text" name="subject"><br>
+            message<br>
+            <textarea name="message" cols="30" rows="10"></textarea><br>
+            email<br>
+            <input type="text" name="email"><br>
+            <button type="submit">SEND</button>
+        </form>
+    </body>
+</html>            
+
