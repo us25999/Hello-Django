@@ -15,6 +15,8 @@ def showRoles(request):
     drawerfieldserializer=DrawerFieldSerializer(drawerfieldobj,many=True)
     return Response({
         'Roles': roleserializer.data,
+
         'DrawerFields': drawerfieldserializer.data,
+        
         'Users': userserializer.data,
         })
