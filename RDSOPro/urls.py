@@ -6,5 +6,5 @@ from .views import *
 
 
 urlpatterns = [
-    path('roles', showRoles, name="showRoles"),
+    path('roles', RDSOModels, name="RDSOModels"),
 ]

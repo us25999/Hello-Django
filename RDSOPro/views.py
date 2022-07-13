@@ -6,7 +6,7 @@ from RDSOPro.models import Roles,Users,DrawerFields
 from RDSOPro.serializer import RolesSerializer,UsersSerializer,DrawerFieldSerializer
 
 @api_view(['GET'])
-def showRoles(request):
+def RDSOModels(request):
     rolesobj=Roles.objects.all()
     usersobj=Users.objects.all()
     drawerfieldobj=DrawerFields.objects.all()
@@ -15,8 +15,6 @@ def showRoles(request):
     drawerfieldserializer=DrawerFieldSerializer(drawerfieldobj,many=True)
     return Response({
         'Roles': roleserializer.data,
-
         'DrawerFields': drawerfieldserializer.data,
-        
         'Users': userserializer.data,
         })
