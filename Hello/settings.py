@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'home',
-    'sendmail.apps.SendmailConfig'
+    'sendmail.apps.SendmailConfig',
+    'RDSOPro.apps.RdsoproConfig'
 ]
 
 MIDDLEWARE = [
