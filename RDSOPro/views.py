@@ -13,8 +13,13 @@ def RDSOModels(request):
     roleserializer=RolesSerializer(rolesobj,many=True)
     userserializer=UsersSerializer(usersobj,many=True)
     drawerfieldserializer=DrawerFieldSerializer(drawerfieldobj,many=True)
-    return Response({
-        'Roles': roleserializer.data,
-        'DrawerFields': drawerfieldserializer.data,
-        'Users': userserializer.data,
-        })
+
+    return Response(roleserializer.data)
+
+    
+    
+    #return Response({
+    #    'Roles': roleserializer.data,
+    #    'DrawerFields': drawerfieldserializer.data,
+    #    'Users': userserializer.data,
+    #    })
