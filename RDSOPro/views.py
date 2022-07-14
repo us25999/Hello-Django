@@ -5,7 +5,7 @@ from django.shortcuts import render
 from RDSOPro.models import Roles,Users,DrawerFields
 from RDSOPro.serializer import RolesSerializer,UsersSerializer,DrawerFieldSerializer
 
-@api_view(['GET'])
+@api_view(['GET','POST'])
 def RDSOModels(request):
     rolesobj=Roles.objects.all()
     usersobj=Users.objects.all()
