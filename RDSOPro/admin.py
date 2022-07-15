@@ -15,9 +15,10 @@ from django.contrib.admin.sites import AlreadyRegistered
 complaint_app_models = apps.get_app_config('RDSOPro').get_models()
 for model in complaint_app_models:
     try:
-         admin.site.register(model)
+        admin.site.register(model)
+         
     except AlreadyRegistered:
-         pass
+        pass
 
 
 

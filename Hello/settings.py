@@ -87,7 +87,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'OPTIONS' : {
-            'options': '-c search_path=comapp,complaint,public'
+            'options': '-c search_path=complaint,comapp,public'
         },
         'NAME': 'dfb3gc8jfifa5l', 
         'USER': 'kzabtpjpntwuij', 
