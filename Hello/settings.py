@@ -87,7 +87,29 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'OPTIONS' : {
-            'options': '-c search_path=\"public\"'
+            'options': '-c search_path=\"complaint\"'
+        },
+        'NAME': 'dfb3gc8jfifa5l', 
+        'USER': 'kzabtpjpntwuij', 
+        'PASSWORD': '5930f36915b7d320610693bba16fa1ad8cf2062ad61eea856612011afa76782d',
+        'HOST': 'ec2-44-206-197-71.compute-1.amazonaws.com', 
+        'PORT': '5432',
+    },
+    'comapp': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'OPTIONS' : {
+            'options': '-c search_path=\"comapp\"'
+        },
+        'NAME': 'dfb3gc8jfifa5l', 
+        'USER': 'kzabtpjpntwuij', 
+        'PASSWORD': '5930f36915b7d320610693bba16fa1ad8cf2062ad61eea856612011afa76782d',
+        'HOST': 'ec2-44-206-197-71.compute-1.amazonaws.com', 
+        'PORT': '5432',
+    },
+    'complaint': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'OPTIONS' : {
+            'options': '-c search_path=\"complaint\"'
         },
         'NAME': 'dfb3gc8jfifa5l', 
         'USER': 'kzabtpjpntwuij', 
