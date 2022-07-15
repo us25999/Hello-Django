@@ -71,7 +71,7 @@ class ComappCommAppProfileRetire(models.Model):
     registered_on = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'comapp.comm_app_profile_retire'
 
 
