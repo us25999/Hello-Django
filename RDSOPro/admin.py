@@ -2,13 +2,13 @@ from django.apps import apps
 from django.contrib import admin
 from django.contrib.admin.sites import AlreadyRegistered
 
-from .models import *
+#from .models import *
 
 
 
-admin.site.register(Roles)
-admin.site.register(DrawerFields)
-admin.site.register(Users)
+#admin.site.register(Roles)
+#admin.site.register(DrawerFields)
+#admin.site.register(Users)
 
 
 
@@ -18,4 +18,7 @@ for model in complaint_app_models:
          admin.site.register(model)
     except AlreadyRegistered:
          pass
+
+
+
 

@@ -43,7 +43,7 @@ class  Users(models.Model) :
 #   * Rearrange models' order
 #   * Make sure each model has one field with primary_key=True
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+#   * Remove `` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
@@ -71,7 +71,6 @@ class ComappCommAppProfileRetire(models.Model):
     registered_on = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        managed = True
         db_table = 'comapp.comm_app_profile_retire'
 
 
@@ -111,7 +110,6 @@ class CommAppLogin(models.Model):
     family_verify_status = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'comm_app_login'
 
 
@@ -134,7 +132,7 @@ class CommAppLoginMaster(models.Model):
     rejection_reason = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_app_login_master'
         unique_together = (('ipasid', 'aadhar_no'),)
 
@@ -156,7 +154,7 @@ class CommAppLoginMaster1(models.Model):
     rdso_nonrdso = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_app_login_master1'
         unique_together = (('ipasid', 'aadhar_no'), ('ipasid', 'aadhar_no'),)
 
@@ -181,7 +179,7 @@ class CommAppLoginMaster050719(models.Model):
     rejection_reason = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_app_login_master_050719'
 
 
@@ -221,7 +219,7 @@ class CommAppLoginTrans(models.Model):
     family_verify_status = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_app_login_trans'
 
 
@@ -239,7 +237,7 @@ class CommAppProfileNonrdso(models.Model):
     modified_on = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_app_profile_nonrdso'
 
 
@@ -249,7 +247,7 @@ class CommApplicationMaster(models.Model):
     app_link = models.CharField(max_length=300, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_application_master'
 
 
@@ -260,7 +258,7 @@ class CommApplicationMaster1(models.Model):
     app_link1 = models.CharField(max_length=300, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_application_master_1'
 
 
@@ -269,7 +267,7 @@ class CommBldgMaster(models.Model):
     bldg_desc = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_bldg_master'
 
 
@@ -278,7 +276,7 @@ class CommDeptMaster(models.Model):
     dept_desc = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_dept_master'
 
 
@@ -288,7 +286,7 @@ class CommDesigMaster(models.Model):
     desig_desc = models.CharField(max_length=100)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_desig_master'
 
 
@@ -297,7 +295,7 @@ class CommDesigMasterOld(models.Model):
     desig_desc = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_desig_master_old'
 
 
@@ -309,7 +307,7 @@ class CommDteMaster(models.Model):
     vertical_dte = models.ForeignKey('CommVerticalDteMaster', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_dte_master'
 
 
@@ -319,7 +317,7 @@ class CommDteMasterOld(models.Model):
     billunit_desc = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_dte_master_old'
 
 
@@ -339,7 +337,7 @@ class CommEmpFamily(models.Model):
     member_index = models.BigIntegerField()
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_emp_family'
         unique_together = (('ipas', 'member_index'),)
 
@@ -349,7 +347,7 @@ class CommEmpStatus(models.Model):
     status_desc = models.CharField(max_length=20)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_emp_status'
 
 
@@ -369,7 +367,7 @@ class CommMenuMaster(models.Model):
     status = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_menu_master'
 
 
@@ -384,7 +382,7 @@ class CommNonrdsoAppPriv(models.Model):
     modified_on = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_nonrdso_app_priv'
         unique_together = (('aadhar_no', 'appid'),)
 
@@ -395,7 +393,7 @@ class CommPayLevel(models.Model):
     gradelevel = models.CharField(max_length=5, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_pay_level'
 
 
@@ -404,7 +402,7 @@ class CommRelationMaster(models.Model):
     relation_desc = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_relation_master'
 
 
@@ -421,7 +419,7 @@ class CommRoleMaster(models.Model):
     status = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_role_master'
 
 
@@ -435,7 +433,7 @@ class CommRolePriv(models.Model):
     modified_on = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_role_priv'
         unique_together = (('role_id', 'menu_id'),)
 
@@ -445,7 +443,7 @@ class CommUsertypeMaster(models.Model):
     type_desc = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_usertype_master'
 
 
@@ -458,7 +456,7 @@ class CommVerifyRole(models.Model):
     email = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_verify_role'
         unique_together = (('ipasid', 'dte_id', 'email'),)
 
@@ -470,7 +468,7 @@ class CommVerticalDteMaster(models.Model):
     vertical_head = models.CharField(max_length=20)
 
     class Meta:
-        managed = False
+        
         db_table = 'comm_vertical_dte_master'
 
 
@@ -482,7 +480,7 @@ class EmpVisitDetails(models.Model):
     emp_ip_address = models.CharField(max_length=15, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'emp_visit_details'
 
 
@@ -492,7 +490,7 @@ class PayBandMaster(models.Model):
     grade_pay = models.IntegerField()
 
     class Meta:
-        managed = False
+        
         db_table = 'pay_band_master'
         unique_together = (('pay_band_scale', 'grade_pay'),)
 
@@ -520,7 +518,7 @@ class ViicpcFixationMatrix(models.Model):
     l_18 = models.BigIntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'viicpc_fixation_matrix'
 
 
@@ -540,7 +538,7 @@ class ViicpcFixationMatrix(models.Model):
 #   * Rearrange models' order
 #   * Make sure each model has one field with primary_key=True
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+#   * Remove `` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
@@ -558,7 +556,7 @@ class AmcFirmMaster(models.Model):
     amc_start_from = models.DateField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'amc_firm_master'
 
 
@@ -570,7 +568,7 @@ class ComplaintAreaCategory(models.Model):
     sub_dir_id = models.CharField(max_length=3, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'complaint_area_category'
         unique_together = (('directorate_id', 'complaint_category_id'),)
 
@@ -580,7 +578,7 @@ class ComplaintDirectorate(models.Model):
     directorate_name = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'complaint_directorate'
 
 
@@ -597,7 +595,7 @@ class ComplaintForemanTeam(models.Model):
     modify_on = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'complaint_foreman_team'
         unique_together = (('directorate_id', 'member_id'),)
 
@@ -612,7 +610,7 @@ class ComplaintMenuMaster(models.Model):
     icon = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'complaint_menu_master'
         unique_together = (('menu_id', 'menu_name'),)
 
@@ -651,7 +649,7 @@ class ComplaintRegistration(models.Model):
     long_term_option = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'complaint_registration'
 
 
@@ -662,7 +660,7 @@ class ComplaintRoleMaster(models.Model):
     rght = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'complaint_role_master'
 
 
@@ -671,7 +669,7 @@ class ComplaintRolePriv(models.Model):
     menu_id = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'complaint_role_priv'
 
 
@@ -681,7 +679,7 @@ class ComplaintSubDirectorate(models.Model):
     directorate_id = models.CharField(max_length=2, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'complaint_sub_directorate'
 
 
@@ -698,7 +696,7 @@ class ComplaintUserRole(models.Model):
     firm_id = models.SmallIntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'complaint_user_role'
 
 
@@ -714,7 +712,7 @@ class EscalatedComplaints(models.Model):
     attended_by_foreman_date_time = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'escalated_complaints'
 
 
@@ -728,7 +726,7 @@ class MachineAmcDetails(models.Model):
     remarks_by_admin = models.CharField(max_length=60, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'machine_amc_details'
 
 
@@ -737,7 +735,7 @@ class MachineDirectorate(models.Model):
     dir_code = models.CharField(max_length=2, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'machine_directorate'
 
 
@@ -753,7 +751,7 @@ class MachineEmpMaster(models.Model):
     last_modified_by = models.CharField(max_length=12, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'machine_emp_master'
 
 
@@ -762,7 +760,7 @@ class MachineTypeMaster(models.Model):
     type_description = models.CharField(max_length=20, blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'machine_type_master'
 
 
@@ -791,7 +789,7 @@ class QtrMaster(models.Model):
     modified_on = models.DateField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        
         db_table = 'qtr_master'
 
 
@@ -799,7 +797,7 @@ class QtrType(models.Model):
     qtr_type = models.CharField(primary_key=True, max_length=3)
 
     class Meta:
-        managed = False
+        
         db_table = 'qtr_type'
 
 
@@ -807,7 +805,7 @@ class Sector(models.Model):
     sector = models.CharField(primary_key=True, max_length=3)
 
     class Meta:
-        managed = False
+        
         db_table = 'sector'
   
   
