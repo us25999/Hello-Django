@@ -1,7 +1,6 @@
 from rest_framework import serializers
-from RDSOPro.models import DrawerFields
-from RDSOPro.models import Users
-from RDSOPro.models import Roles
+from RDSOPro.models import DrawerFields,Roles,Users
+
 
 
 class DrawerFieldSerializer(serializers.ModelSerializer):
