@@ -90,6 +90,9 @@ WSGI_APPLICATION = 'Hello.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'OPTIONS' : {
+            'options': '-c search_path=comapp,complaint,public'
+        },
         'NAME': 'da5lumqit4u8ft', 
         'USER': 'okobihfkvzaqqj', 
         'PASSWORD': '3e8ecfb23de6d363651cf2925d13554c857f6c8f870d4ddebab002f6a1ad5f8e',
