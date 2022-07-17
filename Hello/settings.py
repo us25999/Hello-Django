@@ -37,6 +37,8 @@ ALLOWED_HOSTS = ['Hello.herokuapp.com']
 
 INSTALLED_APPS = [
     'myapp.apps.MyappConfig',
+    'django.contrib.sites',
+    'django.contrib.redirects',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,8 +48,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'home',
     'sendmail.apps.SendmailConfig',
-    'RDSOPro.apps.RdsoproConfig'
+    'RDSOPro.apps.RdsoproConfig',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -86,13 +90,10 @@ WSGI_APPLICATION = 'Hello.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'OPTIONS' : {
-            'options': '-c search_path=comapp,complaint,public'
-        },
-        'NAME': 'dfb3gc8jfifa5l', 
-        'USER': 'kzabtpjpntwuij', 
-        'PASSWORD': '5930f36915b7d320610693bba16fa1ad8cf2062ad61eea856612011afa76782d',
-        'HOST': 'ec2-44-206-197-71.compute-1.amazonaws.com', 
+        'NAME': 'da5lumqit4u8ft', 
+        'USER': 'okobihfkvzaqqj', 
+        'PASSWORD': '3e8ecfb23de6d363651cf2925d13554c857f6c8f870d4ddebab002f6a1ad5f8e',
+        'HOST': 'ec2-54-152-28-9.compute-1.amazonaws.com', 
         'PORT': '5432',
         'ATOMIC_REQUESTS': True,
     },
