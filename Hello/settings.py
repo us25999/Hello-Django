@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 import django_heroku
+import dj_database_url
 
 from pathlib import Path
 
@@ -19,6 +20,9 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+PRODUCTION = os.environ.get('DATABASE_URL') != None
 
 
 # Quick-start development settings - unsuitable for production
@@ -87,11 +91,14 @@ WSGI_APPLICATION = 'Hello.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+
+DATABASE_URL = 'postgres://okobihfkvzaqqj:3e8ecfb23de6d363651cf2925d13554c857f6c8f870d4ddebab002f6a1ad5f8e@ec2-54-152-28-9.compute-1.amazonaws.com:5432/da5lumqit4u8ft'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'OPTIONS' : {
-            'options': '-c search_path=comapp,complaint,public'
+           'options': '-c search_path=comapp,complaint,public'
         },
         'NAME': 'da5lumqit4u8ft', 
         'USER': 'okobihfkvzaqqj', 
@@ -101,6 +108,11 @@ DATABASES = {
         'ATOMIC_REQUESTS': True,
     },
 }
+
+
+
+if PRODUCTION:
+    DATABASES['default'] = dj_database_url.config()
 
 
 # Password validation
