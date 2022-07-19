@@ -5,16 +5,52 @@ from django.shortcuts import render
 from RDSOPro.models import Roles,Users,DrawerFields
 from RDSOPro.serializer import RolesSerializer,UsersSerializer,DrawerFieldSerializer
 
-@api_view(['GET','POST'])
-def RDSOModels(request):
-    rolesobj=Roles.objects.all()
-    usersobj=Users.objects.all()
-    drawerfieldobj=DrawerFields.objects.all()
-    roleserializer=RolesSerializer(rolesobj,many=True)
-    userserializer=UsersSerializer(usersobj,many=True)
-    drawerfieldserializer=DrawerFieldSerializer(drawerfieldobj,many=True)
+@api_view(['GET'])
+def user_api(request,pk=None):
+    if request.method == 'GET':
+        id = pk
+        if id is not None:
+            user = Users.objects.get(user_id = id)
+            usersSerializer = UsersSerializer(user)
+            return Response(usersSerializer.data)
 
-    return Response(roleserializer.data)
+        user = Users.objects.all()
+        usersSerializer = UsersSerializer(user,many=True)
+        return Response(usersSerializer.data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#def RDSOModels(request):
+#    rolesobj=Roles.objects.all()
+#    usersobj=Users.objects.all()
+#    drawerfieldobj=DrawerFields.objects.all()
+#    roleserializer=RolesSerializer(rolesobj,many=True)
+#    userserializer=UsersSerializer(usersobj,many=True)
+#    drawerfieldserializer=DrawerFieldSerializer(drawerfieldobj,many=True)
+
+#    return Response(roleserializer.data)
+    
 
     
     

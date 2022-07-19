@@ -23,7 +23,7 @@ try:
     path('sendmail/',include('sendmail.urls')),
     path('app/', include('myapp.urls')),
     path('home/', include('home.urls')),
-    path('rdsopro/', include('RDSOPro.urls')),
+    path('rdso/', include('RDSOPro.urls')),
     path('admin/', admin.site.urls),
 ]
 except:

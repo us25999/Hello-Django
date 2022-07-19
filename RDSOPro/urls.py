@@ -6,5 +6,6 @@ from .views import *
 
 
 urlpatterns = [
-    path('models', RDSOModels, name="RDSOModels"),
+    path('user', user_api, name="user_api"),
+    path('user/<int:pk>', user_api, name="user_api"),
 ]

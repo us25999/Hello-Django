@@ -23,7 +23,7 @@ class  DrawerFields(models.Model) :
 class  Users(models.Model) :
     user_id = models.IntegerField(primary_key= True ,)
     user_name = models.CharField(max_length=100)  
-    role_id = models.ForeignKey(Roles,related_name='user', blank=True, null= True, on_delete=models.CASCADE) 
+    role_id = models.ManyToManyField(Roles,related_name='user', blank=True) 
 
     def __str__(self):
         return self.user_name
