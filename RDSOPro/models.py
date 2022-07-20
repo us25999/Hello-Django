@@ -2,22 +2,25 @@
 from django.db import models
 
 
-class  Roles(models.Model) :
-    role_id = models.IntegerField(primary_key= True ,)
-    role = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.role
 
 
 class  DrawerFields(models.Model) :
     field_id = models.IntegerField(primary_key= True , )
     field = models.CharField(max_length=100)
     field_link = models.URLField()
-    role_id = models.ManyToManyField(Roles,related_name='drawerField', blank= True)
 
     def __str__(self):
         return self.field
+
+
+class  Roles(models.Model) :
+    role_id = models.IntegerField(primary_key= True ,)
+    role = models.CharField(max_length=100)
+    field_id = models.ManyToManyField(DrawerFields,related_name='role', blank=True)
+
+    def __str__(self):
+        return self.role
 
 
 class  Users(models.Model) :
@@ -57,15 +60,15 @@ class RdsoproDrawerfields(models.Model):
         db_table = 'RDSOPro_drawerfields'
 
 
-class RdsoproDrawerfieldsRoleId(models.Model):
+class RdsoproRolesFieldId(models.Model):
     id = models.BigAutoField(primary_key=True)
-    drawerfields = models.ForeignKey(RdsoproDrawerfields, models.DO_NOTHING)
-    roles = models.ForeignKey('RdsoproRoles', models.DO_NOTHING)
+    roles_id = models.IntegerField()
+    drawerfields_id = models.IntegerField()
 
     class Meta:
         managed = False
-        db_table = 'RDSOPro_drawerfields_role_id'
-        unique_together = (('drawerfields', 'roles'),)
+        db_table = 'RDSOPro_roles_field_id'
+        unique_together = (('roles_id', 'drawerfields_id'),)
 
 
 class RdsoproRoles(models.Model):
@@ -85,6 +88,17 @@ class RdsoproUsers(models.Model):
     class Meta:
         managed = False
         db_table = 'RDSOPro_users'
+
+
+class RdsoproUsersRoleId(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    users = models.ForeignKey(RdsoproUsers, models.DO_NOTHING)
+    roles = models.ForeignKey(RdsoproRoles, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'RDSOPro_users_role_id'
+        unique_together = (('users', 'roles'),)
 
 
 class AmcFirmMaster(models.Model):

@@ -1,5 +1,6 @@
+from pyexpat import model
 from rest_framework import serializers
-from RDSOPro.models import DrawerFields,Roles,Users
+from RDSOPro.models import *
 
 
 
@@ -9,11 +10,14 @@ class DrawerFieldSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class RolesSerializer(serializers.ModelSerializer):
+    field_id = DrawerFieldSerializer(many=True)
     class Meta:
         model = Roles
-        fields = "__all__"
+        fields = ['role_id','role','field_id']
 
 class UsersSerializer(serializers.ModelSerializer):
+    role_id = RolesSerializer(many=True)
     class Meta:
         model = Users
-        fields = "__all__"  
+        fields = ['user_id','user_name','role_id']  
+
