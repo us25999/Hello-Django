@@ -5,6 +5,6 @@ from . import views
 
 
 urlpatterns = [
-    path('user', views.user_api, name="user_api"),
     path('user/<int:pk>', views.user_api, name="user_api"),
+    path('complaint', views.complaint_registration, name="complaint_registration"),
 ]

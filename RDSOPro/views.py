@@ -2,8 +2,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from django.shortcuts import render
-from RDSOPro.models import Roles,Users,DrawerFields
-from RDSOPro.serializer import RolesSerializer,UsersSerializer,DrawerFieldSerializer
+from RDSOPro.models import *
+from RDSOPro.serializer import *
 
 @api_view(['GET'])
 def user_api(request,pk=None):
@@ -17,6 +17,12 @@ def user_api(request,pk=None):
         user = Users.objects.all()
         usersSerializer = UsersSerializer(user,many=True)
         return Response(usersSerializer.data)
+
+@api_view(['GET'])
+def complaint_registration(request):
+    complaint = ComplaintRegistration.objects.filter(status_flag='P')
+    complaintSerializer = ComplaintRegistrationSerializer(complaint,many=True)
+    return Response(complaintSerializer.data)
 
 
 
