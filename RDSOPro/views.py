@@ -1,3 +1,4 @@
+from multiprocessing import AuthenticationError
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -6,7 +7,7 @@ from RDSOPro.models import *
 from RDSOPro.serializer import *
 
 @api_view(['GET'])
-def user_api(request,pk=None):
+def get_user_api(request,pk=None):
     if request.method == 'GET':
         id = pk
         if id is not None:
@@ -18,11 +19,24 @@ def user_api(request,pk=None):
         usersSerializer = UsersSerializer(user,many=True)
         return Response(usersSerializer.data)
 
+@api_view(['POST'])
+def post_user_api(request):
+    user_id = request.data['user_id']
+    user = Users.objects.get(user_id=user_id)
+    if user is None:
+        return AuthenticationError('User does not exist !!!')
+    else:
+        usersSerializer = UsersSerializer(user)
+        return Response(usersSerializer.data)
+
+
 @api_view(['GET'])
 def complaint_registration(request):
     complaint = ComplaintRegistration.objects.filter(status_flag='P')
     complaintSerializer = ComplaintRegistrationSerializer(complaint,many=True)
     return Response(complaintSerializer.data)
+
+
 
 
 
