@@ -37,6 +37,20 @@ def complaint_registration(request):
     return Response(complaintSerializer.data)
 
 
+@api_view(['GET'])
+def role_drawer_api(request,pk=None):
+    if request.method == 'GET':
+        id = pk
+        if id is not None:
+            user = Roles.objects.get(role_id = id)
+            rolesSerializer = RolesSerializer(user)
+            return Response(rolesSerializer.data)
+
+        user = Roles.objects.all()
+        rolesSerializer = RolesSerializer(user,many=True)
+        return Response(rolesSerializer.data)
+
+
 
 
 
