@@ -10,6 +10,10 @@ class  DrawerFields(models.Model) :
     field = models.CharField(max_length=100)
     field_link = models.CharField(max_length=200)
 
+    
+    class Meta:
+        ordering = ['field_id']
+
     def __str__(self):
         return self.field
 
@@ -19,6 +23,9 @@ class  Roles(models.Model) :
     role = models.CharField(max_length=100)
     field_id = models.ManyToManyField(DrawerFields,related_name='role', blank=True)
 
+    class Meta:
+        ordering = ['role_id']
+
     def __str__(self):
         return self.role
 
@@ -27,6 +34,9 @@ class  Users(models.Model) :
     user_id = models.IntegerField(primary_key= True ,)
     user_name = models.CharField(max_length=100)  
     role_id = models.ManyToManyField(Roles,related_name='user', blank=True) 
+
+    class Meta:
+        ordering = ['user_id']
 
     def __str__(self):
         return self.user_name
