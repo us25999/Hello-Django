@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from django.shortcuts import render
 from RDSOPro.models import *
 from RDSOPro.serializer import *
+from django.db import connection, transaction
 
 @api_view(['GET'])
 def get_user_api(request,pk=None):
@@ -49,6 +50,19 @@ def role_drawer_api(request,pk=None):
         user = Roles.objects.all()
         rolesSerializer = RolesSerializer(user,many=True)
         return Response(rolesSerializer.data)
+
+
+@api_view(['POST'])
+def cursor_api(request):
+    user_id = request.data['user_id']
+    if connection.connection is None:
+        cursor=connection.cursor()
+    cursor=connection.connection.cursor()
+    cursor.execute(f'SELECT DISTINCT "RDSOPro_drawerfields".* FROM "RDSOPro_drawerfields" INNER JOIN "RDSOPro_roles_field_id" ON "RDSOPro_drawerfields".field_id = "RDSOPro_roles_field_id".drawerfields_id INNER JOIN "RDSOPro_roles" ON "RDSOPro_roles_field_id".roles_id = "RDSOPro_roles".role_id INNER JOIN "RDSOPro_users_role_id" ON "RDSOPro_roles".role_id = "RDSOPro_users_role_id".roles_id INNER JOIN "RDSOPro_users" ON "RDSOPro_users_role_id".users_id = "RDSOPro_users".user_id WHERE user_id = {user_id}')
+    users = cursor.fetchall()
+    return Response(users)
+
+    
 
 
 

@@ -10,4 +10,5 @@ urlpatterns = [
     path('post-user-api', views.post_user_api, name="post_user_api"),
     path('role-drawer-api', views.role_drawer_api, name="role_drawer_api"),
     path('role-drawer-api/<int:pk>', views.role_drawer_api, name="role_drawer_api"),
+    path('cursor-api', views.cursor_api, name="cursor_api"),
 ]

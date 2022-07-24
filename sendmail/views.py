@@ -4,6 +4,7 @@ from django.shortcuts import render
 
 from django.core.mail import send_mail
 from twilio.rest import Client
+from rest_framework.decorators import api_view
 
 from sendsms import api
 
@@ -15,12 +16,12 @@ from rest_framework.response import Response
  
 
        
-
+@api_view(['POST'])
 def mail(request):
     if request.method == "POST":
-        sub = request.POST.get('subject')
-        msg = request.POST.get('message')
-        email = request.POST.get('email')
+        email = request.data['email']
+        sub = 'Welcome to RDSO'
+        msg = 'You have succesafully registerd. You will be provided password post verification by directed admin of RDSO.'
         send_mail(
             sub,
             msg,
@@ -29,8 +30,7 @@ def mail(request):
             fail_silently=False,
         )
         return HttpResponse("mail sent successfully")
-       
-    return render(request,'mail_sender.html')
+    
 
 
 def sms(request):
