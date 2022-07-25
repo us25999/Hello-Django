@@ -7,7 +7,7 @@ from RDSOPro.models import *
 class DrawerFieldSerializer(serializers.ModelSerializer):
     class Meta:
         model = DrawerFields
-        fields = ['field_id','field','field_link']
+        fields = ['field_id','field','field_link','field_icon']
 
 class RolesSerializer(serializers.ModelSerializer):
     field_id = DrawerFieldSerializer(many=True)

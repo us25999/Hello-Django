@@ -9,6 +9,7 @@ class  DrawerFields(models.Model) :
     field_id = models.IntegerField(primary_key= True , )
     field = models.CharField(max_length=100)
     field_link = models.CharField(max_length=200)
+    field_icon = models.CharField(max_length=100, blank=True, null=True)
 
     
     class Meta:
@@ -64,6 +65,7 @@ class RdsoproDrawerfields(models.Model):
     field_id = models.IntegerField(primary_key=True)
     field = models.CharField(max_length=100)
     field_link = models.CharField(max_length=200)
+    field_icon = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         managed = False
