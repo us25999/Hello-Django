@@ -97,6 +97,37 @@ def view_user_role(request):
     return Response(roles)
 
 
+@api_view(['GET'])
+def role(request):
+    if connection.connection is None:
+        cursor=connection.cursor()
+    cursor=connection.connection.cursor()
+    cursor.execute(f'SELECT role_name FROM complaint_role_master')
+    roles = cursor.fetchall()
+    return Response(roles)
+
+
+@api_view(['GET'])
+def directorate(request):
+    if connection.connection is None:
+        cursor=connection.cursor()
+    cursor=connection.connection.cursor()
+    cursor.execute(f'SELECT directorate_id FROM complaint_directorate')
+    directorate = cursor.fetchall()
+    return Response(directorate)
+
+
+@api_view(['POST'])
+def sub_directorate(request):
+    directorate_id = request.data['directorate_id']
+    if connection.connection is None:
+        cursor=connection.cursor()
+    cursor=connection.connection.cursor()
+    cursor.execute(f'SELECT sub_dir_id,directorate_id FROM complaint_sub_directorate WHERE directorate_id = {directorate_id}')
+    subDirectorate = cursor.fetchall()
+    return Response(subDirectorate)
+
+
 
     
 
