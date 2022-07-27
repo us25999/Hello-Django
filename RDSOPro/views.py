@@ -102,7 +102,7 @@ def role(request):
     if connection.connection is None:
         cursor=connection.cursor()
     cursor=connection.connection.cursor()
-    cursor.execute(f'SELECT role_name FROM complaint_role_master')
+    cursor.execute(f'SELECT DISTINCT role_name FROM complaint_role_master ORDER BY role_name ASC')
     roles = cursor.fetchall()
     return Response(roles)
 
