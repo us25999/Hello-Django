@@ -25,4 +25,4 @@ class UsersSerializer(serializers.ModelSerializer):
 class ComplaintRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = ComplaintRegistration
-        fields = ['complaint_id','complaint_no','complaint_description','status_flag']
+        fields = ['complaint_id','complaint_no','complaint_description','status_flag','escalated']

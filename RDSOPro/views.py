@@ -34,7 +34,7 @@ def post_user_api(request):
 
 @api_view(['GET'])
 def complaint_registration(request):
-    complaint = ComplaintRegistration.objects.filter(status_flag='P')
+    complaint = ComplaintRegistration.objects.all()
     complaintSerializer = ComplaintRegistrationSerializer(complaint,many=True)
     return Response(complaintSerializer.data)
 
