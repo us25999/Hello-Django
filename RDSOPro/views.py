@@ -123,7 +123,7 @@ def sub_directorate(request):
     if connection.connection is None:
         cursor=connection.cursor()
     cursor=connection.connection.cursor()
-    cursor.execute(f"SELECT sub_dir_id,directorate_id FROM complaint_sub_directorate WHERE directorate_id = '{directorate_id}'")
+    cursor.execute(f"SELECT sub_dir_id, FROM complaint_sub_directorate WHERE directorate_id = '{directorate_id}'")
     subDirectorate = cursor.fetchall()
     return Response(subDirectorate)
 
