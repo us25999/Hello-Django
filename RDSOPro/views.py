@@ -1,4 +1,5 @@
 from multiprocessing import AuthenticationError
+from tkinter import END
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -67,12 +68,31 @@ def cursor_api(request):
 @api_view(['POST'])
 def assign_user_role(request):
     user_id = request.data['user_id']
-    role_id = request.data['role_id']
+    role_name = request.data['role_name']
+    dir_id = request.data['dir_id']
+    subDir_id = request.data['subDir_id']
     if connection.connection is None:
         cursor=connection.cursor()
     cursor=connection.connection.cursor()
-    cursor.execute(f'INSERT INTO "RDSOPro_users_role_id" (users_id, roles_id) VALUES ({user_id}, {role_id});')
-    return HttpResponse(f"Assigned role successfully")
+    cursor.execute(f"SELECT * FROM comm_app_login_master WHERE ipasid = '{user_id}'  OR aadhar_no = '{user_id}';")
+    if cursor.rowcount == 0:
+        return HttpResponse(f'User {user_id} does not exist.')
+    else:
+        cursor.execute(f"SELECT * FROM comm_app_login_master WHERE (ipasid = '{user_id}' OR aadhar_no='{user_id}') AND emp_status='w' AND status='v' AND active_flag= 'y';")
+        if cursor.rowcount == 0:
+            return HttpResponse(f'User {user_id} is not verified.')
+        else:
+            cursor.execute(f"SELECT status FROM complaint_user_role WHERE user_id='{user_id}' AND role_id=(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}') AND directorate_id='{dir_id}' AND sub_dir_id='{subDir_id}';")
+            if cursor.rowcount == 0:
+                cursor.execute(f"INSERT INTO complaint_user_role (user_id, role_id, directorate_id, sub_dir_id, entry_on) VALUES ('{user_id}',(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}'),'{dir_id}','{subDir_id}',NOW());")
+                return HttpResponse(f'Role {role_name} is successfully assigned to user {user_id}')
+            else:
+                status = cursor.fetchone()
+                if status == 'D':
+                    cursor.execute(f"INSERT INTO complaint_user_role (user_id, role_id, directorate_id, sub_dir_id,entry_on) VALUES ('{user_id}',(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}'),'{dir_id}','{subDir_id}',NOW());")
+                    return HttpResponse(f'Role {role_name} is successfully assigned to user {user_id}')
+                else:
+                    return HttpResponse(f'Role {role_name} with directorate {dir_id} and sub-directorate {subDir_id} is already assigned to user {user_id}')
 
 
 @api_view(['POST'])
@@ -129,11 +149,37 @@ def sub_directorate(request):
 
 
 
+                    
+
+    
+
+
+
+    
+
+    
+
+
+
     
 
 
     
-
+# IF EXISTS ( SELECT  1 FROM    comm_app_login_master WHERE   ipasid = {user_id}  or aadhar_no = {user_id} ) 
+#                         BEGIN 
+#                             IF EXISTS ( SELECT  1 FROM    comm_app_login_master WHERE   (ipasid = {user_id}  OR aadhar_no = {user_id}) AND emp_status = 'w' AND status = 'v' AND active_flag = 'y' )
+#                                 BEGIN
+#                                     f'INSERT INTO complaint_user_role (user_id, role_id, directorate_id, sub_dir_id) VALUES ({user_id},{role_id},{dir_id},{subDir_id});'
+#                                 END
+#                             ELSE
+#                                 BEGIN
+#                                     user_verified = 0
+#                                 END
+#                         END
+#                     ELSE 
+#                         BEGIN
+#                             user_exist = 0
+#                         END
 
 
 
