@@ -31,7 +31,7 @@ PRODUCTION = os.environ.get('DATABASE_URL') != None
 SECRET_KEY = 'django-insecure-z)c+uq54!br2p1)+1vq=(kwvc0!82**0f1_6nzuvv6jluy829@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['Hello.herokuapp.com']
 
