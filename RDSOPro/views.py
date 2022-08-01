@@ -86,7 +86,7 @@ def assign_user_role(request):
                 cursor.execute(f"INSERT INTO complaint_user_role (user_id, role_id, directorate_id, sub_dir_id, entry_on) VALUES ('{user_id}',(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}'),'{dir_id}','{subDir_id}',NOW());")
                 return Response(f'Role {role_name} is successfully assigned to user {user_id}')
             else:
-                status = cursor.fetchone()
+                status = cursor.fetchone()[0]
                 if status == 'D':
                     cursor.execute(f"INSERT INTO complaint_user_role (user_id, role_id, directorate_id, sub_dir_id,entry_on) VALUES ('{user_id}',(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}'),'{dir_id}','{subDir_id}',NOW());")
                     return Response(f'Role {role_name} is successfully assigned to user {user_id}')
@@ -97,12 +97,25 @@ def assign_user_role(request):
 @api_view(['POST'])
 def remove_user_role(request):
     user_id = request.data['user_id']
-    role_id = request.data['role_id']
+    role_name = request.data['role_name']
+    dir_id = request.data['dir_id']
+    subDir_id = request.data['subDir_id']
     if connection.connection is None:
         cursor=connection.cursor()
     cursor=connection.connection.cursor()
-    cursor.execute(f'DELETE FROM "RDSOPro_users_role_id" WHERE users_id = {user_id} AND roles_id = {role_id};')
-    return HttpResponse(f"Removed role successfully")
+    cursor.execute(f"SELECT status FROM complaint_user_role WHERE user_id='{user_id}' AND role_id=(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}') AND directorate_id='{dir_id}' AND sub_dir_id='{subDir_id}';")
+    if cursor.rowcount == 0:
+        return Response(f'User with specified role and directorate does not exist.')
+    else:
+        status = cursor.fetchone()[0]
+        print(status)
+        if status == 'D':
+            return Response(f'Specified role is already removed for user {user_id}')
+        else:
+            cursor.execute(f"UPDATE complaint_user_role SET status = 'D' WHERE user_id='{user_id}' AND role_id=(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}') AND directorate_id='{dir_id}' AND sub_dir_id='{subDir_id}';")
+            return Response(f'Specified role is successfuly removed from user {user_id}')
+
+    
 
 
 @api_view(['POST'])

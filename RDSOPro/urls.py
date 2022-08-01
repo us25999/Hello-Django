@@ -18,4 +18,5 @@ urlpatterns = [
     path('directorate', views.directorate, name="directorate"),
     path('sub-directorate', views.sub_directorate, name="sub_directorate"),
     path('assign', views.assign_user_role, name="assign_user_role"),
+    path('remove', views.remove_user_role, name="remove_user_role"),
 ]
