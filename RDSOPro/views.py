@@ -113,7 +113,7 @@ def remove_user_role(request):
         cursor=connection.cursor()
     cursor=connection.connection.cursor()
     cursor.execute(f"UPDATE complaint_user_role SET status = 'D' WHERE user_id='{user_id}' AND role_id=(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}') AND directorate_id='{dir_id}' AND sub_dir_id='{subDir_id}';")
-    return Response(f'Role is removed successfuly.')
+    return Response(f'Role is removed successfuly... Refresh to view the changes.')
             
 
     
