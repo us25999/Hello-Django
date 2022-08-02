@@ -84,23 +84,23 @@ def assign_user_role(request):
     cursor=connection.connection.cursor()
     cursor.execute(f"SELECT * FROM comm_app_login_master WHERE ipasid = '{user_id}'  OR aadhar_no = '{user_id}';")
     if cursor.rowcount == 0:
-        return Response(f'User {user_id} does not exist.')
+        return Response(f"Can't assign...!!!{'\n'}User does not exist.")
     else:
         cursor.execute(f"SELECT * FROM comm_app_login_master WHERE (ipasid = '{user_id}' OR aadhar_no='{user_id}') AND emp_status='w' AND status='v' AND active_flag= 'y';")
         if cursor.rowcount == 0:
-            return Response(f'User {user_id} is not verified.')
+            return Response(f"Can't assign...!!!{'\n'}User is not verified.")
         else:
             cursor.execute(f"SELECT status FROM complaint_user_role WHERE user_id='{user_id}' AND role_id=(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}') AND directorate_id='{dir_id}' AND sub_dir_id='{subDir_id}';")
             if cursor.rowcount == 0:
                 cursor.execute(f"INSERT INTO complaint_user_role (user_id, role_id, directorate_id, sub_dir_id, entry_on) VALUES ('{user_id}',(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}'),'{dir_id}','{subDir_id}',NOW());")
-                return Response(f'Role {role_name} is successfully assigned to user {user_id}')
+                return Response(f'Role is successfully assigned...')
             else:
                 status = cursor.fetchone()[0]
                 if status == 'D':
                     cursor.execute(f"INSERT INTO complaint_user_role (user_id, role_id, directorate_id, sub_dir_id,entry_on) VALUES ('{user_id}',(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}'),'{dir_id}','{subDir_id}',NOW());")
-                    return Response(f'Role {role_name} is successfully assigned to user {user_id}')
+                    return Response(f'Role is assigned successfully...')
                 else:
-                    return Response(f'Specified role is already assigned.')
+                    return Response(f"Can't assign...!!!{'\n'}Specified role is already assigned.")
 
 
 @api_view(['POST'])
@@ -113,7 +113,7 @@ def remove_user_role(request):
         cursor=connection.cursor()
     cursor=connection.connection.cursor()
     cursor.execute(f"UPDATE complaint_user_role SET status = 'D' WHERE user_id='{user_id}' AND role_id=(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}') AND directorate_id='{dir_id}' AND sub_dir_id='{subDir_id}';")
-    return Response(f'Role is successfuly removed.')
+    return Response(f'Role is removed successfuly.')
             
 
     
