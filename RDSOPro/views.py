@@ -32,9 +32,10 @@ def post_user_api(request):
         return Response(usersSerializer.data)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def complaint_registration(request):
-    complaint = ComplaintRegistration.objects.all()
+    status_flag = request.data['status_flag']
+    complaint = ComplaintRegistration.objects.filter(status_flag=status_flag)
     complaintSerializer = ComplaintRegistrationSerializer(complaint,many=True)
     return Response(complaintSerializer.data)
 
