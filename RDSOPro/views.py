@@ -100,7 +100,7 @@ def assign_user_role(request):
                     cursor.execute(f"INSERT INTO complaint_user_role (user_id, role_id, directorate_id, sub_dir_id,entry_on) VALUES ('{user_id}',(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}'),'{dir_id}','{subDir_id}',NOW());")
                     return Response(f'Role {role_name} is successfully assigned to user {user_id}')
                 else:
-                    return Response(f'Role {role_name} with directorate {dir_id} and sub-directorate {subDir_id} is already assigned to user {user_id}')
+                    return Response(f'Specified role is already assigned.')
 
 
 @api_view(['POST'])
