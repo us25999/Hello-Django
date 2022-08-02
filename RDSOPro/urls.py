@@ -13,7 +13,7 @@ urlpatterns = [
     path('cursor-api', views.cursor_api, name="cursor_api"),
     
     path('remove-role', views.remove_user_role, name="remove_user_role"),
-    path('view-role', views.view_user_role, name="view_user_role"),
+    path('user-role', views.userRole, name="userRole"),
     path('role', views.role, name="role"),
     path('directorate', views.directorate, name="directorate"),
     path('sub-directorate', views.sub_directorate, name="sub_directorate"),

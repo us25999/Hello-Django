@@ -63,6 +63,15 @@ def cursor_api(request):
     users = cursor.fetchall()
     return Response(users)
 
+@api_view(['GET'])
+def userRole(request):
+    if connection.connection is None:
+        cursor=connection.cursor()
+    cursor=connection.connection.cursor()
+    cursor.execute(f"SELECT user_id, role_name, directorate_id, sub_dir_id FROM complaint_user_role INNER JOIN complaint_role_master ON complaint_role_master.role_id = complaint_user_role.role_id  WHERE status IS NULL;")
+    userRoles = cursor.fetchall()
+    return Response(userRoles)
+
 
 @api_view(['POST'])
 def assign_user_role(request):
@@ -103,30 +112,14 @@ def remove_user_role(request):
     if connection.connection is None:
         cursor=connection.cursor()
     cursor=connection.connection.cursor()
-    cursor.execute(f"SELECT status FROM complaint_user_role WHERE user_id='{user_id}' AND role_id=(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}') AND directorate_id='{dir_id}' AND sub_dir_id='{subDir_id}';")
-    if cursor.rowcount == 0:
-        return Response(f'User with specified role and directorate does not exist.')
-    else:
-        status = cursor.fetchone()[0]
-        print(status)
-        if status == 'D':
-            return Response(f'Specified role is already removed for user {user_id}')
-        else:
-            cursor.execute(f"UPDATE complaint_user_role SET status = 'D' WHERE user_id='{user_id}' AND role_id=(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}') AND directorate_id='{dir_id}' AND sub_dir_id='{subDir_id}';")
-            return Response(f'Specified role is successfuly removed from user {user_id}')
+    cursor.execute(f"UPDATE complaint_user_role SET status = 'D' WHERE user_id='{user_id}' AND role_id=(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}') AND directorate_id='{dir_id}' AND sub_dir_id='{subDir_id}';")
+    return Response(f'Role is successfuly removed.')
+            
 
     
 
 
-@api_view(['POST'])
-def view_user_role(request):
-    user_id = request.data['user_id']
-    if connection.connection is None:
-        cursor=connection.cursor()
-    cursor=connection.connection.cursor()
-    cursor.execute(f'Select "RDSOPro_roles".role_id from "RDSOPro_roles" INNER JOIN "RDSOPro_users_role_id" ON "RDSOPro_roles".role_id = "RDSOPro_users_role_id".roles_id WHERE users_id = {user_id};')
-    roles = cursor.fetchall()
-    return Response(roles)
+
 
 
 @api_view(['GET'])
