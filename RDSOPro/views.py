@@ -32,12 +32,19 @@ def post_user_api(request):
         return Response(usersSerializer.data)
 
 
-@api_view(['POST'])
+@api_view(['POST','GET'])
 def complaint_registration(request):
-    status_flag = request.data['status_flag']
-    complaint = ComplaintRegistration.objects.filter(status_flag=status_flag)
-    complaintSerializer = ComplaintRegistrationSerializer(complaint,many=True)
-    return Response(complaintSerializer.data)
+    if request.method == 'POST':
+        status_flag = request.data['status_flag']
+        complaint = ComplaintRegistration.objects.filter(status_flag=status_flag)
+        complaintSerializer = ComplaintRegistrationSerializer(complaint,many=True)
+        return Response(complaintSerializer.data)
+
+    elif request.method == 'GET' :
+        complaint = ComplaintRegistration.objects.all()
+        complaintSerializer = ComplaintRegistrationSerializer(complaint,many=True)
+        return Response(complaintSerializer.data)
+    
 
 
 @api_view(['GET'])
