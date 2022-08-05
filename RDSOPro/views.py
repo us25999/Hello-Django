@@ -41,7 +41,7 @@ def complaint_registration(request):
         return Response(complaintSerializer.data)
 
     elif request.method == 'GET' :
-        complaint = ComplaintRegistration.objects.all()
+        complaint = ComplaintRegistration.objects.filter(escalated='Y')
         complaintSerializer = ComplaintRegistrationSerializer(complaint,many=True)
         return Response(complaintSerializer.data)
     
@@ -159,6 +159,8 @@ def sub_directorate(request):
     cursor.execute(f"SELECT sub_dir_id FROM complaint_sub_directorate WHERE directorate_id = '{directorate_id}'")
     subDirectorate = cursor.fetchall()
     return Response(subDirectorate)
+
+
 
 
 
