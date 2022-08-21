@@ -11,7 +11,6 @@ urlpatterns = [
     path('role-drawer-api', views.role_drawer_api, name="role_drawer_api"),
     path('role-drawer-api/<int:pk>', views.role_drawer_api, name="role_drawer_api"),
     path('cursor-api', views.cursor_api, name="cursor_api"),
-    
     path('remove-role', views.remove_user_role, name="remove_user_role"),
     path('user-role', views.userRole, name="userRole"),
     path('role', views.role, name="role"),
@@ -19,4 +18,5 @@ urlpatterns = [
     path('sub-directorate', views.sub_directorate, name="sub_directorate"),
     path('assign', views.assign_user_role, name="assign_user_role"),
     path('remove', views.remove_user_role, name="remove_user_role"),
+    path('trains', views.new_trains, name="trains"),
 ]

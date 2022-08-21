@@ -2,8 +2,6 @@ from multiprocessing import AuthenticationError
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
-from django.shortcuts import render
 from RDSOPro.models import *
 from RDSOPro.serializer import *
 from django.db import connection, transaction
@@ -70,7 +68,6 @@ def cursor_api(request):
     cursor.execute(f'SELECT DISTINCT "RDSOPro_drawerfields".* FROM "RDSOPro_drawerfields" INNER JOIN "RDSOPro_roles_field_id" ON "RDSOPro_drawerfields".field_id = "RDSOPro_roles_field_id".drawerfields_id INNER JOIN "RDSOPro_roles" ON "RDSOPro_roles_field_id".roles_id = "RDSOPro_roles".role_id INNER JOIN "RDSOPro_users_role_id" ON "RDSOPro_roles".role_id = "RDSOPro_users_role_id".roles_id INNER JOIN "RDSOPro_users" ON "RDSOPro_users_role_id".users_id = "RDSOPro_users".user_id WHERE user_id = {user_id}')
     users = cursor.fetchall()
     return Response(users)
-
 @api_view(['GET'])
 def userRole(request):
     if connection.connection is None:
@@ -79,6 +76,17 @@ def userRole(request):
     cursor.execute(f"SELECT user_id, role_name, directorate_id, sub_dir_id FROM complaint_user_role INNER JOIN complaint_role_master ON complaint_role_master.role_id = complaint_user_role.role_id  WHERE status IS NULL;")
     userRoles = cursor.fetchall()
     return Response(userRoles)
+@api_view(['POST'])
+def remove_user_role(request):
+    user_id = request.data['user_id']
+    role_name = request.data['role_name']
+    dir_id = request.data['dir_id']
+    subDir_id = request.data['subDir_id']
+    if connection.connection is None:
+        cursor=connection.cursor()
+    cursor=connection.connection.cursor()
+    cursor.execute(f"UPDATE complaint_user_role SET status = 'D' WHERE user_id='{user_id}' AND role_id=(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}') AND directorate_id='{dir_id}' AND sub_dir_id='{subDir_id}';")
+    return Response(f'Role is removed successfuly... Refresh to view the changes.')
 
 
 @api_view(['POST'])
@@ -111,17 +119,7 @@ def assign_user_role(request):
                     return Response(f"Can't assign...!!! Specified role is already assigned.")
 
 
-@api_view(['POST'])
-def remove_user_role(request):
-    user_id = request.data['user_id']
-    role_name = request.data['role_name']
-    dir_id = request.data['dir_id']
-    subDir_id = request.data['subDir_id']
-    if connection.connection is None:
-        cursor=connection.cursor()
-    cursor=connection.connection.cursor()
-    cursor.execute(f"UPDATE complaint_user_role SET status = 'D' WHERE user_id='{user_id}' AND role_id=(SELECT role_id FROM complaint_role_master WHERE role_name='{role_name}') AND directorate_id='{dir_id}' AND sub_dir_id='{subDir_id}';")
-    return Response(f'Role is removed successfuly... Refresh to view the changes.')
+
             
 
     
@@ -163,78 +161,20 @@ def sub_directorate(request):
 
 
 
-
+@api_view(['POST'])
+def new_trains(request):
+    source = request.data['source']
+    destination = request.data['destination']
+    if connection.connection is None:
+        cursor=connection.cursor()
+    cursor=connection.connection.cursor()
+    cursor.execute(f"SELECT * FROM newtrains WHERE source = '{source}' AND destination = '{destination}'")
+    trains = cursor.fetchall()
+    return Response(trains)
                     
 
     
 
 
 
-    
 
-    
-
-
-
-    
-
-
-    
-# IF EXISTS ( SELECT  1 FROM    comm_app_login_master WHERE   ipasid = {user_id}  or aadhar_no = {user_id} ) 
-#                         BEGIN 
-#                             IF EXISTS ( SELECT  1 FROM    comm_app_login_master WHERE   (ipasid = {user_id}  OR aadhar_no = {user_id}) AND emp_status = 'w' AND status = 'v' AND active_flag = 'y' )
-#                                 BEGIN
-#                                     f'INSERT INTO complaint_user_role (user_id, role_id, directorate_id, sub_dir_id) VALUES ({user_id},{role_id},{dir_id},{subDir_id});'
-#                                 END
-#                             ELSE
-#                                 BEGIN
-#                                     user_verified = 0
-#                                 END
-#                         END
-#                     ELSE 
-#                         BEGIN
-#                             user_exist = 0
-#                         END
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#def RDSOModels(request):
-#    rolesobj=Roles.objects.all()
-#    usersobj=Users.objects.all()
-#    drawerfieldobj=DrawerFields.objects.all()
-#    roleserializer=RolesSerializer(rolesobj,many=True)
-#    userserializer=UsersSerializer(usersobj,many=True)
-#    drawerfieldserializer=DrawerFieldSerializer(drawerfieldobj,many=True)
-
-#    return Response(roleserializer.data)
-    
-
-    
-    
-    #return Response({
-    #    'Roles': roleserializer.data,
-    #    'DrawerFields': drawerfieldserializer.data,
-    #    'Users': userserializer.data,
-    #    })

@@ -1,6 +1,22 @@
 
 from django.db import models
 
+class  NewTrains(models.Model) :
+    train_no = models.IntegerField(primary_key= True , )
+    train_name = models.CharField(max_length=100)
+    source = models.CharField(max_length=200)
+    destination = models.CharField(max_length=100, blank=True, null=True)
+    s_date_time = models.DateTimeField(max_length=100, blank=True, null=True)
+    d_date_time = models.DateTimeField(max_length=100, blank=True, null=True)
+    fare = models.IntegerField( blank=True, null=True)
+
+    
+    class Meta:
+        ordering = ['train_no']
+
+    def __str__(self):
+        return self.train_name
+
 
 
 
